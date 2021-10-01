@@ -1,17 +1,26 @@
+const sideContain = $('#sideContainer')
+let sideBtns = sideContain.children();
 const weatherArea = $('#weatherContainer');
 const forecastArea = $('#forecastContainer');
 const cards = document.querySelector('#cardsContainer').children;
-
 const cityInput = $('#cityInput');
 const submitBtn = $('#submitBtn');
 let latLonArr = [];
 let weatherArr;
 let cityToSearch = '';
 
+// .includes(cityToSearch)
 function getLongLat(event){
   event.preventDefault()
   cityToSearch = cityInput.val();
-  // console.log(cityToSearch);
+  //console.log(cityToSearch);
+  let btnsToArray = [];
+  for (let i=0;i<sideBtns.length;i++){
+    btnsToArray.push(sideBtns[i].textContent)
+  }
+    if (!btnsToArray.includes(cityToSearch)) {
+      $('<button>').text(cityToSearch).addClass('previous').appendTo(sideContain)
+  }
   let userInputUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityToSearch + '&limit=5&appid=6f7fcdfd5baf071bea56c4dc9633ff39';
   fetch(userInputUrl, {
     cache: 'reload',
@@ -94,3 +103,23 @@ function createElements(){
 submitBtn.on('click', getLongLat);
 
 //for the buttons, just paste the text into the cityInput.val() so you don't have to write another function for it
+sideContain.on('click', function(event){
+  let btnClicked = event.target;
+  cityInput.val(btnClicked.textContent);
+  console.log(btnClicked.textContent);
+  cityToSearch = cityInput.val();
+  let userInputUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityToSearch + '&limit=5&appid=6f7fcdfd5baf071bea56c4dc9633ff39';
+  fetch(userInputUrl, {
+    cache: 'reload',
+  })
+    .then(function (response){
+      if (response.status !== 200) {
+        console.log('please enter a city')
+      }
+      return response.json();
+    })
+    .then(function(data){
+      latLonArr = [data[0].lat, data[0].lon];
+      getWeather();
+    })
+})
