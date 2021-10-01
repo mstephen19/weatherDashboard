@@ -1,6 +1,5 @@
 $(document).ready(function(){
   const sideContain = $('#sideContainer')
-  let sideBtns = sideContain.children();
   const weatherArea = $('#weatherContainer');
   const forecastArea = $('#forecastContainer');
   const cards = document.querySelector('#cardsContainer').children;
