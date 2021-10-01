@@ -16,9 +16,12 @@ $(document).ready(function(){
     pulledValues;
     //console.log(pulledValues);
     for (let i=0;i<pulledValues.length;i++){
-      $('<button>').text(pulledValues[i]).addClass('previous').appendTo(sideContain);
+      btnsToArray.push(pulledValues[i]);
+      $('<button>').addClass('previous').text(pulledValues[i]).appendTo(sideContain);
+      console.log(pulledValues[i])
     }
-  })
+  });
+
   // .includes(cityToSearch)
   function getLongLat(event){
     event.preventDefault()
