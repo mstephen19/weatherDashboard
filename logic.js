@@ -36,7 +36,7 @@ $(document).ready(function(){
       // console.log(btnsToArray)
       localStorage.setItem('prevBtns', JSON.stringify(btnsToArray));
 
-    let userInputUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityToSearch + '&limit=5&appid=6f7fcdfd5baf071bea56c4dc9633ff39';
+    let userInputUrl = 'https://api.openweathermap.org/geo/1.0/direct?q=' + cityToSearch + '&limit=5&appid=6f7fcdfd5baf071bea56c4dc9633ff39';
     fetch(userInputUrl, {
       cache: 'reload',
     })
@@ -131,7 +131,7 @@ $(document).ready(function(){
     cityInput.val(btnClicked.textContent);
     //console.log(btnClicked.textContent);
     cityToSearch = cityInput.val();
-    let userInputUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityToSearch + '&limit=5&appid=6f7fcdfd5baf071bea56c4dc9633ff39';
+    let userInputUrl = 'https://api.openweathermap.org/geo/1.0/direct?q=' + cityToSearch + '&limit=5&appid=6f7fcdfd5baf071bea56c4dc9633ff39';
     fetch(userInputUrl, {
       cache: 'reload',
     })
