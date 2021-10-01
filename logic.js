@@ -18,13 +18,13 @@ $(document).ready(function(){
     for (let i=0;i<pulledValues.length;i++){
       btnsToArray.push(pulledValues[i]);
       $('<button>').addClass('previous').text(pulledValues[i]).appendTo(sideContain);
-      console.log(pulledValues[i])
+      //console.log(pulledValues[i])
     }
   });
 
   // .includes(cityToSearch)
   function getLongLat(event){
-    event.preventDefault()
+    event.preventDefault();
     cityToSearch = cityInput.val();
     //console.log(cityToSearch);
     // for (let i=0;i<sideBtns.length;i++){
@@ -34,7 +34,7 @@ $(document).ready(function(){
         $('<button>').text(cityToSearch).addClass('previous').appendTo(sideContain)
         btnsToArray.push(cityToSearch);
       }
-      console.log(btnsToArray)
+      // console.log(btnsToArray)
       localStorage.setItem('prevBtns', JSON.stringify(btnsToArray));
 
     let userInputUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityToSearch + '&limit=5&appid=6f7fcdfd5baf071bea56c4dc9633ff39';
@@ -45,7 +45,7 @@ $(document).ready(function(){
         // console.log(response)
         //error
         if (response.status !== 200) {
-          console.log('please enter a city')
+          console.log('Please enter a city')
         }
         return response.json();
       })
@@ -79,16 +79,20 @@ $(document).ready(function(){
   }
 
   function createElements(){
-    console.log(weatherArr);
+    // console.log(weatherArr);
     var dateNow = moment.unix(weatherArr.current.dt).format("DD/MM/YYYY");
+    let weatherIcon = weatherArr.current.weather[0].icon;
+    let weatherIconLink = 'http://openweathermap.org/img/wn/' + weatherIcon + '@2x.png'
     let tempNow = weatherArr.current.temp;
     let windSpeedNow = weatherArr.current.wind_speed;
     let humidityNow = weatherArr.current.humidity;
     let uvIndexNow = weatherArr.current.uvi;
     //set now
+    //console.log('THE ICON LINK: ' + weatherIconLink)
 
     //BE SURE TO SET ICONS TOO
 
+    document.getElementById('mainImage').setAttribute('src', weatherIconLink)
     $('#cityName').text(cityInput.val() + ', ' + dateNow)
     $('#temperature').text('Temperature: ' + Math.floor(tempNow) + ' °C');
     $('#windSpeed').text('Wind Speed: ' + windSpeedNow + 'km/h');
@@ -105,11 +109,15 @@ $(document).ready(function(){
     let nextDaysArr = weatherArr.daily;
     console.log(nextDaysArr);
     for (let i = 0; i < 5; i++){
+      let weatherIconCards = nextDaysArr[i].weather[0].icon;
+      let weatherIconLinkCards = 'http://openweathermap.org/img/wn/' + weatherIconCards + '@2x.png'
+
       cards[i].children[0].children[0].textContent = moment.unix(nextDaysArr[i].dt).format("DD/MM/YYYY");
-      cards[i].children[0].children[1].textContent = 'Temp: ' + Math.floor(nextDaysArr[i].temp.day) + ' °C';
-      cards[i].children[0].children[2].textContent = 'Wind: ' + nextDaysArr[i].wind_speed + 'km/h';
-      cards[i].children[0].children[3].textContent = 'Humidity: ' + nextDaysArr[i].humidity + '%';
-      cards[i].children[0].children[4].textContent = 'UV: ' + nextDaysArr[i].uvi;
+      cards[i].children[0].children[1].setAttribute('src', weatherIconLinkCards);
+      cards[i].children[0].children[2].textContent = 'Temp: ' + Math.floor(nextDaysArr[i].temp.day) + ' °C';
+      cards[i].children[0].children[3].textContent = 'Wind: ' + nextDaysArr[i].wind_speed + 'km/h';
+      cards[i].children[0].children[4].textContent = 'Humidity: ' + nextDaysArr[i].humidity + '%';
+      cards[i].children[0].children[5].textContent = 'UV: ' + nextDaysArr[i].uvi;
     }
 
     //at end of function
@@ -122,7 +130,7 @@ $(document).ready(function(){
   sideContain.on('click', function(event){
     let btnClicked = event.target;
     cityInput.val(btnClicked.textContent);
-    console.log(btnClicked.textContent);
+    //console.log(btnClicked.textContent);
     cityToSearch = cityInput.val();
     let userInputUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityToSearch + '&limit=5&appid=6f7fcdfd5baf071bea56c4dc9633ff39';
     fetch(userInputUrl, {
