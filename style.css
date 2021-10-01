@@ -18,7 +18,8 @@ body {
   height: 100%;
   background: red;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 #containersWrapper {
@@ -39,22 +40,31 @@ body {
   flex-direction: column;
 }
 
-#forecastContainer {
-  background-color: yellow;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-#titleContainer {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
 #uvIndex {
   padding: 3px;
   border-radius: 3px;
   width: 100px;
   text-align: center;
+}
+
+#forecastContainer {
+  background-color: yellow;
+  display: flex;
+  flex-direction: column;
+}
+
+#titleContainer {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: center;
+}
+
+#cardsContainer {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }

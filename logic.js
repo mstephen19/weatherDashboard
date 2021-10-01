@@ -1,10 +1,12 @@
-const weatherArea = $('#weatherContainer')
-const forecastArea = $('#forecastContainer')
+const weatherArea = $('#weatherContainer');
+const forecastArea = $('#forecastContainer');
+const cards = document.querySelector('#cardsContainer').children;
 
 const cityInput = $('#cityInput');
 const submitBtn = $('#submitBtn');
 let latLonArr = [];
 let weatherArr;
+let cityToSearch = '';
 
 function getLongLat(event){
   event.preventDefault()
@@ -60,10 +62,10 @@ function createElements(){
   let uvIndexNow = weatherArr.current.uvi;
   //set now
 
-  //BE SURE TO GET THE DATE TOO AND
+  //BE SURE TO SET ICONS TOO
 
   $('#cityName').text(cityInput.val() + ', ' + dateNow)
-  $('#temperature').text('Temperature: ' + Math.floor(tempNow) + ' C');
+  $('#temperature').text('Temperature: ' + Math.floor(tempNow) + ' °C');
   $('#windSpeed').text('Wind Speed: ' + windSpeedNow + 'km/h');
   $('#humidity').text('Humidity: ' + humidityNow + '%');
   $('#uvIndex').text('UV: ' + uvIndexNow);
@@ -75,9 +77,15 @@ function createElements(){
     $('#uvIndex').css('background-color', 'yellow');
   }
 
-  
   let nextDaysArr = weatherArr.daily;
-  // set next 5 days for loop for each create card
+  console.log(nextDaysArr);
+  for (let i = 0; i < 5; i++){
+    cards[i].children[0].children[0].textContent = moment.unix(nextDaysArr[i].dt).format("DD/MM/YYYY");
+    cards[i].children[0].children[1].textContent = 'Temp: ' + Math.floor(nextDaysArr[i].temp.day) + ' °C';
+    cards[i].children[0].children[2].textContent = 'Wind: ' + nextDaysArr[i].wind_speed + 'km/h';
+    cards[i].children[0].children[3].textContent = 'Humidity: ' + nextDaysArr[i].humidity + '%';
+    cards[i].children[0].children[4].textContent = 'UV: ' + nextDaysArr[i].uvi;
+  }
 
   //at end of function
   cityInput.val('')
