@@ -1,0 +1,60 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#mainContainer {
+  width: 100%;
+  height: 100%;
+  background: green;
+  display: flex;
+}
+
+#sideContainer{
+  width: 20%;
+  height: 100%;
+  background: red;
+  display: flex;
+  justify-content: center;
+}
+
+#containersWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: 100%
+}
+
+.twoContainers {
+  height: 50%;
+  width: 100%;
+}
+
+#weatherContainer{
+  background-color: orange;
+  display:flex;
+  flex-direction: column;
+}
+
+#forecastContainer {
+  background-color: yellow;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#titleContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#uvIndex {
+  padding: 3px;
+  border-radius: 3px;
+  width: 100px;
+  text-align: center;
+}

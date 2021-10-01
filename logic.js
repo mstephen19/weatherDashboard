@@ -1,9 +1,13 @@
+const weatherArea = $('#weatherContainer')
+const forecastArea = $('#forecastContainer')
+
 const cityInput = $('#cityInput');
 const submitBtn = $('#submitBtn');
 let latLonArr = [];
 let weatherArr;
 
-function getLongLat(){
+function getLongLat(event){
+  event.preventDefault()
   cityToSearch = cityInput.val();
   // console.log(cityToSearch);
   let userInputUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityToSearch + '&limit=5&appid=6f7fcdfd5baf071bea56c4dc9633ff39';
@@ -49,9 +53,34 @@ function getWeather(){
 
 function createElements(){
   console.log(weatherArr);
+  var dateNow = moment.unix(weatherArr.current.dt).format("DD/MM/YYYY");
   let tempNow = weatherArr.current.temp;
   let windSpeedNow = weatherArr.current.wind_speed;
   let humidityNow = weatherArr.current.humidity;
+  let uvIndexNow = weatherArr.current.uvi;
+  //set now
+
+  //BE SURE TO GET THE DATE TOO AND
+
+  $('#cityName').text(cityInput.val() + ', ' + dateNow)
+  $('#temperature').text('Temperature: ' + Math.floor(tempNow) + ' C');
+  $('#windSpeed').text('Wind Speed: ' + windSpeedNow + 'km/h');
+  $('#humidity').text('Humidity: ' + humidityNow + '%');
+  $('#uvIndex').text('UV: ' + uvIndexNow);
+  if (uvIndexNow < 3) {
+    $('#uvIndex').css('background-color', 'green');
+  } else if (uvIndexNow > 6) {
+    $('#uvIndex').css('background-color', 'red');
+  } else {
+    $('#uvIndex').css('background-color', 'yellow');
+  }
+
+  
+  let nextDaysArr = weatherArr.daily;
+  // set next 5 days for loop for each create card
+
+  //at end of function
+  cityInput.val('')
 }
 
 submitBtn.on('click', getLongLat);
