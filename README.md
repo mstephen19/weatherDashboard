@@ -12,6 +12,7 @@ This is a website that displays the weather of a specific city selected by the u
 * [Bootstrap](https://getbootstrap.com/)
 * [jQuery](https://jquery.com/)
 * [MomentJS](https://momentjs.com/)
+* [OpenWeatherMap](https://openweathermap.org/)
 * [Meyer Web reset.css file](https://meyerweb.com/eric/tools/css/reset/)
 
 ## Deployed Link
